@@ -16,7 +16,7 @@ USAGE: code.py <filter> <field> <database-file>
   Ex: 2018-05-12T15:35:00 2019-02-05T02:45:00 2019-02-04T20:45:00 0,3-4 P1 <database-file>
   weekdays= 0-monday, etc.
 """
-print(sys.argv)
+#print(sys.argv)
 if __name__ == "__main__":
     try:
         expr = ' '.join(sys.argv[1:-2])
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     h_analyze = code.timestamp_from_datetime(d_date)
     #print(h_analyze)
     comp_date = h_analyze - 2592000###COMP_DATE -30 DAYS TO THE D_DATE (2592000 = 30 days)
-    intervaldb,errors = code.find_between_timestamps(table, s, e)
+    intervaldb,errors, year_analyzer = code.find_between_timestamps(table, s, e)
 
     # filter by weekday
     ans_14 = []
@@ -66,32 +66,32 @@ if __name__ == "__main__":
                 ans.append(entry)
                 if s_hour <= code.time_from_timestamp(entry[0]) and e_hour <= code.time_from_timestamp(entry[0]):
                     ansH.append(entry)
-                    print(f'{code.time_from_timestamp(entry[0])} {code.datetime_from_timestamp(entry[0])} {entry}')
+                    #print(f'{code.time_from_timestamp(entry[0])} {code.datetime_from_timestamp(entry[0])} {entry}')
                     if entry[0] >= comp_date:
                         ans_14.append(entry)
-                        print(f'{code.time_from_timestamp(entry[0])} {code.datetime_from_timestamp(entry[0])} {entry}')
-
+                        #print(f'{code.time_from_timestamp(entry[0])} {code.datetime_from_timestamp(entry[0])} {entry}')
+    if errors != None:
+        code.related_errors(errors)
+    if year_analyzer != None:
+        code.db_media_year(year_analyzer, field)
+        code.db_median_year(year_analyzer, field)
 
 
 
 
     '''
-    for entry in ansH:
-        print(f'{code.time_from_timestamp(entry[0])} {code.datetime_from_timestamp(entry[0])} {entry}')
 
     with open('2018_2019_filtro_Hora.txt', 'w+') as file_SmartEnergy:
         for i in ansH:
             file_SmartEnergy.write(str(i)+'\n')
         file_SmartEnergy.close()
 
-
+'''
 
 
 
 
     # TODO filter by hour-minute-second interval
-    for entry in ansH:
-        print(code.time_from_timestamp(entry[0]), code.timestamp_from_datetime(entry[0]))'''
 
 
     # group data by day
@@ -103,11 +103,3 @@ if __name__ == "__main__":
             s = s + entry[code.FIELD[field]]
         print(group, s / len(ans[group]), len(ans[group]), len(ans[group]) / 1439.0)
     """
-'''print(type(entry[0]),'1010101')
-
-    print(code.time_from_timestamp(entry[0]))
-
-
-    print(type(code.time_from_timestamp(entry[0])))
-    print(type(e_hour))
-    print(e_hour)'''

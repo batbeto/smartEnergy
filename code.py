@@ -1,4 +1,5 @@
 import datetime
+from statistics import mean, median
 
 FIELD = {"time": 0,
          "FPA": 1,
@@ -62,16 +63,20 @@ def find_day(day, table):
 def find_between_timestamps(table, start, end):
     """ Find the interval in BD between passed parameters and try to find any discontinuity
     """
+
     aux = 0.0
     db_jump = []
     ans = []
+    yearAnalyzer = []
     for entry in table:
         if start <= entry[0] and end <= entry[0]:
             ans.append(entry)
         if (entry[0] - aux) >= 3660.0 and aux != 0.0:
             db_jump.append([aux,entry[0]])
         aux = entry[0]
-    return ans, db_jump
+        if year_from_timestamp(start) == year_from_timestamp(entry[0]):
+            yearAnalyzer.append(entry)
+    return ans, db_jump, yearAnalyzer
 
 def is_date_valid(date):
     """
@@ -87,7 +92,14 @@ def weekday_from_timestamp(timestamp):
     """
     """
     return datetime.datetime.fromtimestamp(timestamp).weekday()
-
+def month_from_timestamp(timestamp):
+    """
+    """
+    return datetime.datetime.fromtimestamp(timestamp).month
+def year_from_timestamp(timestamp):
+    """
+    """
+    return datetime.datetime.fromtimestamp(timestamp).year
 def datetime_from_timestamp(timestamp):
     """
     """
@@ -119,9 +131,22 @@ def time_from_timestamp(timestamp):
     """
     return datetime.datetime.fromtimestamp(timestamp).time()
 
-def related_erros(errors):
+def related_errors(errors):
+    """
+    """
     with open('relatedErrors.txt', 'w') as file_SmartEnergy:
         for entry in errors:
             file_SmartEnergy.write(str(f'{time_from_timestamp(entry[0])} {datetime_from_timestamp(entry[0])} {entry[0]} '))
             file_SmartEnergy.write(str(f'{time_from_timestamp(entry[1])} {datetime_from_timestamp(entry[1])} {entry[1]} \n'))
         file_SmartEnergy.close()
+def db_media_year(year_analyzer,field):
+    """
+    """
+    if field in FIELD and field != 'time':
+        return print(mean(year_analyzer[FIELD[field]]))
+
+def db_median_year(year_analyzer,field):
+    """
+    """
+    if field in FIELD and field != 'time':
+        return print(median(year_analyzer[FIELD[field]]))

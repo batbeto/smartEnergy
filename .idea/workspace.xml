@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code.py" beforeDir="false" afterPath="$PROJECT_DIR$/code.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/pip-selfcheck.json" beforeDir="false" afterPath="$PROJECT_DIR$/venv/pip-selfcheck.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +18,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="125" column="40" selection-start-line="125" selection-start-column="40" selection-end-line="125" selection-end-column="40" />
+            <state relative-caret-position="172">
+              <caret line="147" column="40" lean-forward="true" selection-start-line="147" selection-start-column="40" selection-end-line="147" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -39,7 +43,7 @@
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="155">
-              <caret line="75" selection-start-line="75" selection-end-line="75" />
+              <caret line="56" column="67" selection-start-line="56" selection-start-column="44" selection-end-line="56" selection-end-column="67" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -50,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/relatedErrors.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
-              <caret line="51" selection-start-line="50" selection-start-column="1" selection-end-line="51" />
+            <state relative-caret-position="238">
+              <caret line="29" column="65" selection-start-column="9" selection-end-line="29" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -59,8 +63,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/dump-2019-04-25-09-00-48.csv">
           <provider selected="true" editor-type-id="LargeFileEditor">
-            <state relative-caret-position="68">
-              <caret line="4" column="25" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="25" />
+            <state relative-caret-position="136">
+              <caret line="8" column="58" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -347,6 +351,19 @@
     <entry file="file://$PROJECT_DIR$/2018_2019_filtro_Hora.txt" />
     <entry file="file://$PROJECT_DIR$/2018_2019_filtro_14dias.txt" />
     <entry file="file://$PROJECT_DIR$/2018_2019.txt" />
+    <entry file="file://$PROJECT_DIR$/db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="35" column="16" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/dump-2019-05-09-09-44-29.csv">
+      <provider selected="true" editor-type-id="LargeFileEditor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/analyzer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -367,46 +384,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/dump-2019-05-09-09-44-29.csv">
-      <provider selected="true" editor-type-id="LargeFileEditor" />
+    <entry file="file://$PROJECT_DIR$/relatedErrors.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="29" column="65" selection-start-column="9" selection-end-line="29" selection-end-column="65" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/dump-2019-04-25-09-00-48.csv">
       <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="68">
-          <caret line="4" column="25" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="35" column="16" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="125" column="40" selection-start-line="125" selection-start-column="40" selection-end-line="125" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/relatedErrors.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="51" selection-start-line="50" selection-start-column="1" selection-end-line="51" />
+        <state relative-caret-position="136">
+          <caret line="8" column="58" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
-          <caret line="75" selection-start-line="75" selection-end-line="75" />
+          <caret line="56" column="67" selection-start-line="56" selection-start-column="44" selection-end-line="56" selection-end-column="67" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="147" column="40" lean-forward="true" selection-start-line="147" selection-start-column="40" selection-end-line="147" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
