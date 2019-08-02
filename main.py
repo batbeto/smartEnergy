@@ -73,11 +73,7 @@ if __name__ == "__main__":
 
 
 
-    with open('relatedErrors.txt', 'w') as file_SmartEnergy:
-        for entry in errors:
-            file_SmartEnergy.write(str(f'{code.time_from_timestamp(entry[0])} {code.datetime_from_timestamp(entry[0])} {entry[0]} '))
-            file_SmartEnergy.write(str(f'{code.time_from_timestamp(entry[1])} {code.datetime_from_timestamp(entry[1])} {entry[1]} \n'))
-        file_SmartEnergy.close()
+
 
     '''
     for entry in ansH:
