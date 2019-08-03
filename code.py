@@ -1,5 +1,5 @@
 import datetime
-from statistics import mean, median
+from statistics import median
 
 FIELD = {"time": 0,
          "FPA": 1,
@@ -142,11 +142,19 @@ def related_errors(errors):
 def db_media_year(year_analyzer,field):
     """
     """
+    sum_media = 0
     if field in FIELD and field != 'time':
-        return print(mean(year_analyzer[FIELD[field]]))
+        number = FIELD[field]
+        for entry in year_analyzer:
+            sum_media += entry[number]
+        return print(sum_media/len(year_analyzer))
 
 def db_median_year(year_analyzer,field):
     """
     """
+    median_list = []
     if field in FIELD and field != 'time':
-        return print(median(year_analyzer[FIELD[field]]))
+        number = FIELD[field]
+        for entry in year_analyzer:
+            median_list.append(entry[number])
+    return print(median(median_list))
