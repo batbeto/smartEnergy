@@ -1,9 +1,8 @@
 import db
-import calendar
 import code
 import re
 import sys
-from datetime import datetime
+
 
 
 
@@ -76,9 +75,12 @@ if __name__ == "__main__":
         print(code.db_media(year_analyzer, field))
         print(code.db_median(year_analyzer, field))
 
+
     print(code.db_dp(ans_30,field))
 
     code.plot( ans, s_date[:10] )
+
+
 
 
     '''

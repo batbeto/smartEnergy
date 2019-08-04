@@ -1,7 +1,11 @@
 import datetime
 from statistics import median
 import numpy as np
+<<<<<<< Updated upstream
 from os import system
+=======
+import matplotlib.pyplot as plt
+>>>>>>> Stashed changes
 
 FIELD = {"time": 0,
          "FPA": 1,
@@ -175,6 +179,7 @@ def db_dp(analyzer, field):
     dp = np.sqrt(variance)
     return dp
 
+
 def plot( table, name ):
     arch_name = name + ".csv"  #gets the name for the archive
 
@@ -183,4 +188,6 @@ def plot( table, name ):
             archive.write( str(i) + "\n" )      #save every line
         archive.close()     #close the archive
     system( "octave plots/oc_plot.m plots/"+arch_name )  #calls the octave script
+
+
 
