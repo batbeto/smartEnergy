@@ -78,7 +78,7 @@ if __name__ == "__main__":
 
     print(code.db_dp(ans_30,field))
 
-
+    code.plot( ans, s_date[:10] )
 
 
     '''
