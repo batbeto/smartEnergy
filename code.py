@@ -1,5 +1,6 @@
 import datetime
 from statistics import median
+import numpy as np
 
 FIELD = {"time": 0,
          "FPA": 1,
@@ -139,22 +140,38 @@ def related_errors(errors):
             file_SmartEnergy.write(str(f'{time_from_timestamp(entry[0])} {datetime_from_timestamp(entry[0])} {entry[0]} '))
             file_SmartEnergy.write(str(f'{time_from_timestamp(entry[1])} {datetime_from_timestamp(entry[1])} {entry[1]} \n'))
         file_SmartEnergy.close()
-def db_media_year(year_analyzer,field):
+
+def db_media(analyzer,field):
     """
     """
-    sum_media = 0
+    sum_media = []
     if field in FIELD and field != 'time':
         number = FIELD[field]
-        for entry in year_analyzer:
-            sum_media += entry[number]
-        return print(sum_media/len(year_analyzer))
+        for entry in analyzer:
+            sum_media.append(entry[number])
+    media = np.mean(sum_media)
+    return media
 
-def db_median_year(year_analyzer,field):
+def db_median(analyzer,field):
     """
     """
     median_list = []
     if field in FIELD and field != 'time':
         number = FIELD[field]
-        for entry in year_analyzer:
+        for entry in analyzer:
             median_list.append(entry[number])
-    return print(median(median_list))
+    return median(median_list)
+
+def db_dp(analyzer, field):
+    """
+    """
+    sum_analyzer = []
+    if field in FIELD and field != 'time':
+        number = FIELD[field]
+        for entry in analyzer:
+            sum_analyzer.append(entry[number])
+    variance = np.var(sum_analyzer)
+    dp = np.sqrt(variance)
+    return dp
+
+

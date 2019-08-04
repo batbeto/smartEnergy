@@ -57,7 +57,7 @@ if __name__ == "__main__":
     intervaldb,errors, year_analyzer = code.find_between_timestamps(table, s, e)
 
     # filter by weekday
-    ans_14 = []
+    ans_30 = []
     ans = []
     ansH = []
     for entry in intervaldb:
@@ -68,13 +68,15 @@ if __name__ == "__main__":
                     ansH.append(entry)
                     #print(f'{code.time_from_timestamp(entry[0])} {code.datetime_from_timestamp(entry[0])} {entry}')
                     if entry[0] >= comp_date:
-                        ans_14.append(entry)
+                        ans_30.append(entry)
                         #print(f'{code.time_from_timestamp(entry[0])} {code.datetime_from_timestamp(entry[0])} {entry}')
     if errors != None:
         code.related_errors(errors)
     if year_analyzer != None:
-        code.db_media_year(year_analyzer, field)
-        code.db_median_year(year_analyzer, field)
+        print(code.db_media(year_analyzer, field))
+        print(code.db_median(year_analyzer, field))
+
+    print(code.db_dp(ans_30,field))
 
 
 
