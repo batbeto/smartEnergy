@@ -1,11 +1,8 @@
 import datetime
 from statistics import median
 import numpy as np
-<<<<<<< Updated upstream
 from os import system
-=======
-import matplotlib.pyplot as plt
->>>>>>> Stashed changes
+
 
 FIELD = {"time": 0,
          "FPA": 1,
