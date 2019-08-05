@@ -3,6 +3,7 @@ from statistics import median
 import numpy as np
 from os import system
 
+
 FIELD = {"time": 0,
          "FPA": 1,
          "FPB": 2,
@@ -183,4 +184,6 @@ def plot( table, name, field ):
             archive.write( str(i) + "\n" )      #save every line
         archive.close()     #close the archive
     system( "octave plots/oc_plot.m plots/"+arch_name+" "+field )  #calls the octave script
+
+
 
