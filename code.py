@@ -175,12 +175,12 @@ def db_dp(analyzer, field):
     dp = np.sqrt(variance)
     return dp
 
-def plot( table, name ):
+def plot( table, name, field ):
     arch_name = name + ".csv"  #gets the name for the archive
 
     with open( "plots/"+arch_name, 'w' ) as archive:    #create the archive
         for i in table:
             archive.write( str(i) + "\n" )      #save every line
         archive.close()     #close the archive
-    system( "octave plots/oc_plot.m plots/"+arch_name )  #calls the octave script
+    system( "octave plots/oc_plot.m plots/"+arch_name+" "+field )  #calls the octave script
 
