@@ -70,16 +70,15 @@ def find_between_timestamps(table, start, end):
     aux = 0.0
     db_jump = []
     ans = []
-    yearAnalyzer = []
+    cont = 0
     for entry in table:
         if start <= entry[0] and end >= entry[0]:
             ans.append(entry)
         if (entry[0] - aux) >= 3660.0 and aux != 0.0:
             db_jump.append([aux,entry[0]])
-        aux = entry[0]
-        if year_from_timestamp(start) == year_from_timestamp(entry[0]):
-            yearAnalyzer.append(entry)
-    return ans, db_jump, yearAnalyzer
+            cont += 1
+        aux = entry[0]    
+    return ans, db_jump
 
 def is_date_valid(date):
     """
@@ -95,6 +94,7 @@ def weekday_from_timestamp(timestamp):
     """
     """
     return datetime.datetime.fromtimestamp(timestamp).weekday()
+
 def month_from_timestamp(timestamp):
     """
     """
@@ -103,6 +103,7 @@ def year_from_timestamp(timestamp):
     """
     """
     return datetime.datetime.fromtimestamp(timestamp).year
+
 def datetime_from_timestamp(timestamp):
     """
     """
@@ -112,6 +113,7 @@ def timestamp_from_datetime(date):
     """
     """
     return datetime.datetime.strptime(date, "%Y-%m-%dT%H:%M:%S").timestamp()
+
 def timestamp_from_time(time):
     """
     """
@@ -151,8 +153,8 @@ def db_media(analyzer,field):
         number = FIELD[field]
         for entry in analyzer:
             sum_media.append(entry[number])
-    media = np.mean(sum_media)
-    return media
+    mean = np.mean(sum_media)
+    return mean
 
 def db_median(analyzer,field):
     """
@@ -164,7 +166,7 @@ def db_median(analyzer,field):
             median_list.append(entry[number])
     return median(median_list)
 
-def db_dp(analyzer, field):
+def db_standard_deviation(analyzer, field):
     """
     """
     sum_analyzer = []
@@ -172,13 +174,35 @@ def db_dp(analyzer, field):
         number = FIELD[field]
         for entry in analyzer:
             sum_analyzer.append(entry[number])
-    variance = np.var(sum_analyzer)
+    svariance = np.var(sum_analyzer)
     dp = np.sqrt(variance)
     return dp
 
-def plot( table, name, field ):
-    arch_name = name + ".csv"  #gets the name for the archive
+def filter_table(intervaldb):
+    """
+    """
+    ans = []
+    ansH = []
+    for entry in intervaldb:
+        if week_expr != None:
+            if week_pattern.match(str(code.weekday_from_timestamp(entry[0]))):
+                ans.append(entry)
+                if s_hour <= code.time_from_timestamp(entry[0]) and e_hour <= code.time_from_timestamp(entry[0]):
+                    ansH.append(entry)
+    return ans, ansH
 
+def bd_29days(ansH):
+    """
+    """
+       
+
+
+
+
+def plot( table, name, field ):
+    """
+    """
+    arch_name = name + ".csv"  #gets the name for the archive
     with open( "plots/"+arch_name, 'w' ) as archive:    #create the archive
         for i in table:
             archive.write( str(i)[1:-1] + "\n" )      #save every line
