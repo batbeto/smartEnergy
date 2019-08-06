@@ -178,23 +178,27 @@ def db_standard_deviation(analyzer, field):
     dp = np.sqrt(variance)
     return dp
 
-def filter_table(intervaldb):
+def filter_table(intervaldb, week_expr, week_pattern, s_hour, e_hour):
     """
     """
     ans = []
     ansH = []
     for entry in intervaldb:
         if week_expr != None:
-            if week_pattern.match(str(code.weekday_from_timestamp(entry[0]))):
+            if week_pattern.match(str(weekday_from_timestamp(entry[0]))):
                 ans.append(entry)
-                if s_hour <= code.time_from_timestamp(entry[0]) and e_hour <= code.time_from_timestamp(entry[0]):
+                if s_hour <= time_from_timestamp(entry[0]) and e_hour <= time_from_timestamp(entry[0]):
                     ansH.append(entry)
     return ans, ansH
 
-def bd_29days(ansH):
+def bd_29days(table, comp_date, h_analyze):
     """
     """
-       
+    table_28days = []
+    for entry in table:
+        if entry[0] > comp_date and entry[0] < (h_analyze-86400):
+            table_28days.append(entry)
+    return table_28days
 
 
 

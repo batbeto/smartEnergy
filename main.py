@@ -52,44 +52,27 @@ if __name__ == "__main__":
     #print(e_hour)
     h_analyze = code.timestamp_from_datetime(d_date)
     #print(h_analyze)
-    comp_date = h_analyze - 2592000###COMP_DATE -30 DAYS TO THE D_DATE (2592000 = 30 days)
+    comp_date = h_analyze - 2419200###COMP_DATE -28 DAYS TO THE D_DATE (2419200 = 28 days)
     intervaldb,errors = code.find_between_timestamps(table, s, e)
 
     # filter by weekday
-    ans, ansH = code.filter_table(intervaldb)
+    ans, ansH = code.filter_table(intervaldb, week_expr, week_pattern, s_hour, e_hour)
     
     if errors != None:
         code.related_errors(errors)
-    if year_analyzer != None:
-        print(code.db_media(year_analyzer, field))
-        print(code.db_median(year_analyzer, field))
+    
 
-
-    print(code.db_standard_deviationdp(ans_30,field))
-
+    ans_28days = code.bd_29days(ans, comp_date, h_analyze)
+    for entry in ans_28days:
+        print(code.datetime_from_timestamp(entry[0]))
+"""
     code.plot( ans_to_octave, s_date[:10], field )
 
-    '''
+    
+    
 
     with open('2018_2019_filtro_Hora.txt', 'w+') as file_SmartEnergy:
         for i in ansH:
             file_SmartEnergy.write(str(i)+'\n')
         file_SmartEnergy.close()
-
-'''
-
-
-
-
-    # TODO filter by hour-minute-second interval
-
-
-    # group data by day
-    """
-    ans = code.group_entries_by_day(ans)
-    for group in ans:
-        s = 0.0
-        for entry in ans[group]:
-            s = s + entry[code.FIELD[field]]
-        print(group, s / len(ans[group]), len(ans[group]), len(ans[group]) / 1439.0)
-    """
+        """
