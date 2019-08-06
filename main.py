@@ -66,7 +66,7 @@ if __name__ == "__main__":
             if week_pattern.match(str(code.weekday_from_timestamp(entry[0]))):
                 ans.append(entry)
                 ans_to_octave += [entry[:]]
-                ans_to_octave[cont].append( float(code.weekday_from_timestamp(entry[0])))
+                ans_to_octave[cont][0] = code.weekday_from_timestamp(entry[0])
                 if s_hour <= code.time_from_timestamp(entry[0]) and e_hour <= code.time_from_timestamp(entry[0]):
                     ansH.append(entry)
                     #print(f'{code.time_from_timestamp(entry[0])} {code.datetime_from_timestamp(entry[0])} {entry}')
@@ -84,9 +84,6 @@ if __name__ == "__main__":
     print(code.db_dp(ans_30,field))
 
     code.plot( ans_to_octave, s_date[:10], field )
-
-
-
 
     '''
 

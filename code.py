@@ -72,7 +72,7 @@ def find_between_timestamps(table, start, end):
     ans = []
     yearAnalyzer = []
     for entry in table:
-        if start <= entry[0] and end <= entry[0]:
+        if start <= entry[0] and end >= entry[0]:
             ans.append(entry)
         if (entry[0] - aux) >= 3660.0 and aux != 0.0:
             db_jump.append([aux,entry[0]])
@@ -181,7 +181,7 @@ def plot( table, name, field ):
 
     with open( "plots/"+arch_name, 'w' ) as archive:    #create the archive
         for i in table:
-            archive.write( str(i) + "\n" )      #save every line
+            archive.write( str(i)[1:-1] + "\n" )      #save every line
         archive.close()     #close the archive
     system( "octave plots/oc_plot.m plots/"+arch_name+" "+field )  #calls the octave script
 

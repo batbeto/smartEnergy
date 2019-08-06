@@ -2,12 +2,6 @@
 
 printf("Started\n"); %begin the program (octave does not accept begin with a function)
 
-function save_pdf (vector1, vector2, name1, name2)  %Function that saves the graphic in a PDF archive
-  graphic = plot( vector1, vector2, "ob", "markerfacecolor", "b", "markersize", 5 );  %Create a graphic with x axix == vector 1, and a y axis == vector 2. That graphic contains blue dot markers of size == 15. Don't have lines.
-  file_name = sprintf( "%s%s.pdf", name1, name2 )
-  saveas(graphic, file_name); #save the graphic in PDF
-  endfunction
-
 function field = switch_field( choice )
   
   switch( choice )
@@ -41,24 +35,25 @@ function list = get_day_mean( file )
   last_day = 8;
   cont = 0;
   for i=1:length( file )
-    if last_day == file( i, 11 ) || last_day == 8
+    wd = file(i, 1);
+    if last_day == wd || last_day == 8
       switch (length(week_day))
       case 0
         week_day = file(i, 1:end);
         cont += 1;
       otherwise
-        week_day = [ week_day(1), week_day(2:10) + file( i, 2:10 ), week_day(11)];
+        week_day = [ week_day(1), week_day(2:end) + file( i, 2:end )];
         cont += 1;
       endswitch
     else
-      week_day = [week_day(1), week_day( 2:10 ) / cont, last_day ];
+      week_day = [week_day(1), week_day( 2:end ) / cont];
       list = [list; week_day ];
       week_day = file( i, 1:end );
       cont = 1;
     endif
-    last_day = file( i, 11 );
+    last_day = wd;
   endfor
-  week_day = [week_day(1), week_day( 2:10 ) / cont, last_day ];
+  week_day = [week_day(1), week_day( 2:end ) / cont];
   list = [list; week_day ];
 endfunction
 
@@ -68,24 +63,25 @@ function list = get_week_mean( vector )
   week = [];
   cont = 0;
   for i=1:length( vector )
-    if vector( i, 11 ) > last_day || last_day == 8
+    wd = vector(i, 1);
+    if wd > last_day || last_day == 8
       switch (length(week))
         case 0
           week = vector(i, 1:end);
           cont += 1;
         otherwise
-          week = [ week(1), week( 2:10 ) + vector( i, 2:10 ), last_day ];
+          week = [ week(1), week( 2:end ) + vector( i, 2:end )];
           cont += 1;
       endswitch
     else
-      week = [ week(1), week( 2:10 ) / cont, last_day ];
+      week = [ week(1), week( 2:end ) / cont];
       list = [list; week];
       cont = 1;
       week = vector(i, 1:end);
     endif
-    last_day = vector( i, 11 );
+    last_day = wd;
   endfor
-  week = [ week(1), week( 2:10 ) / cont, last_day];
+  week = [ week(1), week( 2:end ) / cont];
   list = [list; week];
 endfunction
 
@@ -95,7 +91,8 @@ function list = get_week_sd( vector )
   week_sd = [];
   cont = 0;
   for i=1:length( vector )
-    if vector(i, 11) > last_day || last_day == 8
+    wd = vector( i, 1 );
+    if wd > last_day || last_day == 8
       switch length( week_sd ) 
         case 0
           week_sd = vector(i, 1:end);
@@ -103,12 +100,12 @@ function list = get_week_sd( vector )
           week_sd = [week_sd; vector(i, 1:end)];
       endswitch
     else
-      list = [list; week_sd(1, 1), std( week_sd(1:end, 2) ), std( week_sd(1:end, 3) ), std( week_sd(1:end, 4) ), std( week_sd(1:end, 5) ), std( week_sd(1:end, 6) ), std( week_sd(1:end, 7) ), std( week_sd(1:end, 8) ), std( week_sd(1:end, 9) ), std( week_sd(1:end, 10) ), week_sd( 1, 11 )];
+      list = [list; week_sd(1, 1), std( week_sd(1:end, 2) ), std( week_sd(1:end, 3) ), std( week_sd(1:end, 4) ), std( week_sd(1:end, 5) ), std( week_sd(1:end, 6) ), std( week_sd(1:end, 7) ), std( week_sd(1:end, 8) ), std( week_sd(1:end, 9) ), std( week_sd(1:end, 10) )];
       week_sd = vector( i, 1:end );
     endif
-    last_day = vector( i, 11 );
+    last_day = wd;
   endfor
-  list = [list; week_sd(1, 1), std( week_sd(1:end, 2) ), std( week_sd(1:end, 3) ), std( week_sd(1:end, 4) ), std( week_sd(1:end, 5) ), std( week_sd(1:end, 6) ), std( week_sd(1:end, 7) ), std( week_sd(1:end, 8) ), std( week_sd(1:end, 9) ), std( week_sd(1:end, 10) ), week_sd( 1, 11 )];
+  list = [list; week_sd(1, 1), std( week_sd(1:end, 2) ), std( week_sd(1:end, 3) ), std( week_sd(1:end, 4) ), std( week_sd(1:end, 5) ), std( week_sd(1:end, 6) ), std( week_sd(1:end, 7) ), std( week_sd(1:end, 8) ), std( week_sd(1:end, 9) ), std( week_sd(1:end, 10) )];
 endfunction
 
 function plot_csv (archive, field)  #Function that creat a animated graphic of a csv file
@@ -117,9 +114,8 @@ function plot_csv (archive, field)  #Function that creat a animated graphic of a
   file = csvread( archive );
   weekdays = get_day_mean( file );
 
-  figure;
-
   week_std = 0;   #start the standard deviation for future use
+  format "bank";
   arithmetic_mean = get_week_mean( weekdays );   #start the vector with arithmetic means for every week in csv file
   standard_deviation = get_week_sd( weekdays );  #same as arithmetic_mean, but for standard deviation
 
@@ -141,10 +137,13 @@ function plot_csv (archive, field)  #Function that creat a animated graphic of a
     hold on;    #keep the graphic on screen
     pause(1);   #create a delay (in this case, accelerate)
   endfor
+  figure(1);
   hold on;
+
   pause(10);
 
-  #save_pdf( arithmetic_mean, standard_deviation, archive, field );
+  #file_name = cstrcat( archive, field, ".pdf" );
+  #print ( 1, file_name );
   
 endfunction
 
