@@ -63,9 +63,29 @@ if __name__ == "__main__":
     
 
     ans_28days = code.bd_29days(ans, comp_date, h_analyze)
-    for entry in ans_28days:
-        print(code.datetime_from_timestamp(entry[0]))
-"""
+    
+    with open( "28days.csv", 'w' ) as file:
+        for i in ans_28days:
+            file.write( str(code.datetime_from_timestamp(i[0]) )+"\n" )
+        file.close()
+
+
+    """
+    with open("TESTFILE.csv", 'w') as file:
+        last_entry = ans_28days[0][0]
+        for entry in ans_28days[1:]:
+            time = entry[0]
+            if time - last_entry >= 61:
+                while time >= last_entry:
+                    file.write("0\n")
+                    time -= 60
+                file.write("0\n")
+            else:
+                file.write(str(entry)[1:-1]+"\n")
+            last_entry = entry[0]
+        file.close()
+
+
     code.plot( ans_to_octave, s_date[:10], field )
 
     
