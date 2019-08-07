@@ -63,6 +63,11 @@ def find_day(day, table):
     """
     return binary_search_day(day, table, 0, len(table) - 1)
 
+def return_field(field):
+    if field in FIELD:
+        number = FIELD[field]
+    return number
+    
 def find_between_timestamps(table, start, end):
     """ Find the interval in BD between passed parameters and try to find any discontinuity
     """
@@ -136,6 +141,11 @@ def time_from_timestamp(timestamp):
     """
     return datetime.datetime.fromtimestamp(timestamp).time()
 
+def date_from_timestamp(timestamp):
+    """
+    """
+    return datetime.datetime.fromtimestamp(timestamp).date()
+
 def related_errors(errors):
     """archive the related errors of the database
     """
@@ -146,35 +156,29 @@ def related_errors(errors):
         file_SmartEnergy.close()
 
 
-def db_mean(analyzer,field):
+def db_mean(analyzer,field_number):
     """ calculating mean 
     """
     sum_mean = []
-    if field in FIELD and field != 'time':
-        number = FIELD[field]
-        for entry in analyzer:
-            sum_mean.append(entry[number])
+    for entry in analyzer:
+        sum_mean.append(entry[field_number])
     mean = np.mean(sum_mean)
     return mean
 
-def db_median(analyzer,field):
+def db_median(analyzer,field_number):
     """finding median
     """
     median_list = []
-    if field in FIELD and field != 'time':
-        number = FIELD[field]
-        for entry in analyzer:
-            median_list.append(entry[number])
+    for entry in analyzer:
+        median_list.append(entry[field_number])
     return median(median_list)
 
-def db_standard_deviation(analyzer, field):
+def db_standard_deviation(analyzer, field_number):
     """calculating standard deviation
     """
-    sum_analyzer = []
-    if field in FIELD and field != 'time':
-        number = FIELD[field]
-        for entry in analyzer:
-            sum_analyzer.append(entry[number])
+    sum_analyzer = []    
+    for entry in analyzer:
+        sum_analyzer.append(entry[number_number])
     svariance = np.var(sum_analyzer)
     dp = np.sqrt(variance)
     return dp
@@ -204,8 +208,8 @@ def db_28days(table, comp_date, h_analyze):
         if entry[0] > comp_date and entry[0] < (h_analyze-86400):         
             table_28days.append(entry)         
     return table_28days
-'''NÃO TERMINADO, PENSAR MELHOR, PEDIR FIELD, DECLARAR MELHOR, ELIMINAR ENTRAVE!
-'''
+
+
 def efficience_table(table):
     """40320
     """
@@ -225,10 +229,13 @@ def plot( table, name, field ):
         archive.close()     #close the archive
     system( "octave plots/oc_plot.m plots/"+arch_name+" "+field )  #calls the octave script
 
-'''
-    if (time - last_time) >= 65 and entry[0] > last_time:
-                while time >= last_time:
-                    time -= 62
-                    table_28days.append("0,0,0,0,0,0,0,0,0,0")
-            else:
-'''
+def mean_day(table, h_analyze, field_number):
+    """
+    """
+    mean_today = []
+    date_today = datetime.datetime.strptime(h_analyze, "%Y-%m-%dT%H:%M:%S").date()
+    for entry in table:
+        if date_from_timestamp(entry[0]) == date_today:
+            mean_today.append(entry)
+    mean_day = db_mean(mean_today,field_number)
+    return mean_day

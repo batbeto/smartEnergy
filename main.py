@@ -25,6 +25,7 @@ if __name__ == "__main__":
         week_pattern = re.compile(week_expr)
         d_date = sys.argv[3]
         field = sys.argv[-2]
+        field_number = code.return_field(field)
         dbpath = sys.argv[-1]
         table, content = code.read_data(dbpath)
     except:
@@ -63,9 +64,12 @@ if __name__ == "__main__":
         code.related_errors(errors)
     
 
-    ans_28days = code.db_28days(ans, comp_date, h_analyze)
+    ans_28days = code.db_28days(table, comp_date, h_analyze)
     
     ans_28days_octave = code.efficience_table(ans_28days)
+
+    mean_day = code.mean_day(table,d_date,field_number)
+    
     
     with open( "28days.csv", 'w' ) as file:
         for entry in ans_28days_octave:
