@@ -22,7 +22,7 @@ DAYS = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "11", "12", \
 WEEKDAYS = ["SEG", "TER", "QUA", "QUI", "SEX", "SAB", "DOM"]
 
 def read_data(filename):
-    """
+    """ read the date from database
     """
     table = []
     content = open(filename).read().split()[1:]
@@ -33,7 +33,7 @@ def read_data(filename):
     return table, content
 
 def binary_search_day(day, table, start, end):
-    """
+    """ doing a binary search in the database to be more fast
     """
     if start <= end:
         m = int((start + end) / 2)
@@ -59,7 +59,7 @@ def binary_search_day(day, table, start, end):
             return binary_search_day(day, table, start, m - 1)
 
 def find_day(day, table):
-    """
+    """ looking for one day
     """
     return binary_search_day(day, table, 0, len(table) - 1)
 
@@ -81,7 +81,7 @@ def find_between_timestamps(table, start, end):
     return ans, db_jump
 
 def is_date_valid(date):
-    """
+    """ validate integer number in the date
     """
     try :
         year, month, day = [int(i) for i in date.split('-')]
@@ -91,36 +91,36 @@ def is_date_valid(date):
         return False
 
 def weekday_from_timestamp(timestamp):
-    """
+    """ return the weekday 
     """
     return datetime.datetime.fromtimestamp(timestamp).weekday()
 
 def month_from_timestamp(timestamp):
-    """
+    """return the month
     """
     return datetime.datetime.fromtimestamp(timestamp).month
 def year_from_timestamp(timestamp):
-    """
+    """return the year
     """
     return datetime.datetime.fromtimestamp(timestamp).year
 
 def datetime_from_timestamp(timestamp):
-    """
+    """convert timestamp to datetime
     """
     return datetime.date.fromtimestamp(timestamp)
 
 def timestamp_from_datetime(date):
-    """
+    """ convert datetime to timestamp
     """
     return datetime.datetime.strptime(date, "%Y-%m-%dT%H:%M:%S").timestamp()
 
 def timestamp_from_time(time):
-    """
+    """return only the time of datetime
     """
     return datetime.datetime.strptime(time, "%Y-%m-%dT%H:%M:%S").time()
 
 def group_entries_by_day(table):
-    """
+    """ doing a grupo of entries by day
     """
     ans = {}
     for entry in table:
@@ -132,12 +132,12 @@ def group_entries_by_day(table):
 
 
 def time_from_timestamp(timestamp):
-    """
+    """ return only the time of timestamp
     """
     return datetime.datetime.fromtimestamp(timestamp).time()
 
 def related_errors(errors):
-    """
+    """archive the related errors of the database
     """
     with open('relatedErrors.txt', 'w') as file_SmartEnergy:
         for entry in errors:
@@ -145,19 +145,20 @@ def related_errors(errors):
             file_SmartEnergy.write(str(f'{time_from_timestamp(entry[1])} {datetime_from_timestamp(entry[1])} {entry[1]} \n'))
         file_SmartEnergy.close()
 
-def db_media(analyzer,field):
+
+def db_mean(analyzer,field):
+    """ calculating mean 
     """
-    """
-    sum_media = []
+    sum_mean = []
     if field in FIELD and field != 'time':
         number = FIELD[field]
         for entry in analyzer:
-            sum_media.append(entry[number])
-    mean = np.mean(sum_media)
+            sum_mean.append(entry[number])
+    mean = np.mean(sum_mean)
     return mean
 
 def db_median(analyzer,field):
-    """
+    """finding median
     """
     median_list = []
     if field in FIELD and field != 'time':
@@ -167,7 +168,7 @@ def db_median(analyzer,field):
     return median(median_list)
 
 def db_standard_deviation(analyzer, field):
-    """
+    """calculating standard deviation
     """
     sum_analyzer = []
     if field in FIELD and field != 'time':
@@ -179,7 +180,7 @@ def db_standard_deviation(analyzer, field):
     return dp
 
 def filter_table(intervaldb, week_expr, week_pattern, s_hour, e_hour):
-    """
+    """filter of intervaldb to return date and hour
     """
     ans = []
     ansH = []
@@ -191,20 +192,31 @@ def filter_table(intervaldb, week_expr, week_pattern, s_hour, e_hour):
                     ansH.append(entry)
     return ans, ansH
 
-def bd_29days(table, comp_date, h_analyze):
+
+
+def db_28days(table, comp_date, h_analyze):
+    """creating a interval of 28 days
     """
-    """
+    
     table_28days = []
     for entry in table:
-        if entry[0] > comp_date and entry[0] < (h_analyze-86400):
-            table_28days.append(entry)
+        time = entry[0]
+        if entry[0] > comp_date and entry[0] < (h_analyze-86400):         
+            table_28days.append(entry)         
     return table_28days
-
-
+'''NÃO TERMINADO, PENSAR MELHOR, PEDIR FIELD, DECLARAR MELHOR, ELIMINAR ENTRAVE!
+'''
+def efficience_table(table):
+    """40320
+    """
+    if len(table) < 40320:
+        for entry in range(40320 - len(table)):
+            table.append([0,0,0,0,0,0,0,0,0,0])
+    return table
 
 
 def plot( table, name, field ):
-    """
+    """plot maker!
     """
     arch_name = name + ".csv"  #gets the name for the archive
     with open( "plots/"+arch_name, 'w' ) as archive:    #create the archive
@@ -213,5 +225,10 @@ def plot( table, name, field ):
         archive.close()     #close the archive
     system( "octave plots/oc_plot.m plots/"+arch_name+" "+field )  #calls the octave script
 
-
-
+'''
+    if (time - last_time) >= 65 and entry[0] > last_time:
+                while time >= last_time:
+                    time -= 62
+                    table_28days.append("0,0,0,0,0,0,0,0,0,0")
+            else:
+'''

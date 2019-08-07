@@ -50,6 +50,7 @@ if __name__ == "__main__":
     #print(s_hour)
     e_hour = code.timestamp_from_time(e_date)
     #print(e_hour)
+    
     h_analyze = code.timestamp_from_datetime(d_date)
     #print(h_analyze)
     comp_date = h_analyze - 2419200###COMP_DATE -28 DAYS TO THE D_DATE (2419200 = 28 days)
@@ -62,11 +63,13 @@ if __name__ == "__main__":
         code.related_errors(errors)
     
 
-    ans_28days = code.bd_29days(ans, comp_date, h_analyze)
+    ans_28days = code.db_28days(ans, comp_date, h_analyze)
+    
+    ans_28days_octave = code.efficience_table(ans_28days)
     
     with open( "28days.csv", 'w' ) as file:
-        for i in ans_28days:
-            file.write( str(code.datetime_from_timestamp(i[0]) )+"\n" )
+        for entry in ans_28days_octave:
+            file.write( str(entry)[1:-1]+"\n" )
         file.close()
 
 
