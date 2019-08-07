@@ -65,9 +65,9 @@ if __name__ == "__main__":
         print(code.db_median(year_analyzer, field))
 
 
-    print(code.db_standard_deviationdp(ans_30,field))
+    #print(code.db_standard_deviationdp(ans_30,field))
 
-    code.plot( ans_to_octave, s_date[:10], field )
+    #code.plot( ans_to_octave, s_date[:10], field )
 
     '''
 
