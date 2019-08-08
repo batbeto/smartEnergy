@@ -64,20 +64,23 @@ if __name__ == "__main__":
         code.related_errors(errors)
     
 
-    ans_28days = code.db_28days(table, comp_date, h_analyze)
+    ans_28days = code.db_28days(table, comp_date, h_analyze)    #gets a list of every data 28 days ago since the "present day"
     
-    ans_28days_octave = code.efficience_table(ans_28days)
+    ans_28days_octave, historic_efficience = code.efficience_table(ans_28days)  #gets a list completed by 0's ( disposable ), end precision that we got
 
-    mean_day = code.mean_day(table,d_date,field_number)
+    mean_day, efficience_day = code.mean_day(table,d_date,field_number) #Get arithimetic mean to the present day and precision of data that we got
+    historic_mean = code.db_mean( ans_28days, field_number )    #Gets the arithimetic mean of historic data
     
-    
+
+    day_1 = [historic_mean, historic_efficience, mean_day, efficience_day]  #Is a list of [ historic media, efficience of historic media, day media, efficience of day media ]
+
+    """
     with open( "28days.csv", 'w' ) as file:
         for entry in ans_28days_octave:
             file.write( str(entry)[1:-1]+"\n" )
         file.close()
 
 
-    """
     with open("TESTFILE.csv", 'w') as file:
         last_entry = ans_28days[0][0]
         for entry in ans_28days[1:]:

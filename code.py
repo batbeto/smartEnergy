@@ -213,10 +213,16 @@ def db_28days(table, comp_date, h_analyze):
 def efficience_table(table):
     """40320
     """
+    efficient_tax = ( len(table) / 40320 ) * 100
     if len(table) < 40320:
         for entry in range(40320 - len(table)):
             table.append([0,0,0,0,0,0,0,0,0,0])
-    return table
+    return table, efficient_tax
+
+def efficience_to_day( table ):
+    """86400
+    """
+    return len(table) / 86400
 
 
 def plot( table, name, field ):
@@ -237,5 +243,8 @@ def mean_day(table, h_analyze, field_number):
     for entry in table:
         if date_from_timestamp(entry[0]) == date_today:
             mean_today.append(entry)
-    mean_day = db_mean(mean_today,field_number)
-    return mean_day
+    if len( mean_today ) > 0:
+        mean_day = db_mean(mean_today, field_number)
+    else:
+        mean_day = -1
+    return mean_day, efficience_to_day( mean_today )
