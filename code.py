@@ -210,30 +210,28 @@ def db_28days(table, comp_date, h_analyze):
     return table_28days
 
 
-def efficience_table(table):
-    """40320
+def efficience_table(table, week_expr, week_pattern):
+    """calculating the efficience of the table!
     """
-    efficient_tax = ( len(table) / 40320 ) * 100
-    if len(table) < 40320:
-        for entry in range(40320 - len(table)):
-            table.append([0,0,0,0,0,0,0,0,0,0])
+    TIME_ARG = {0:0,
+                1:5760,
+                2:11520,
+                3:17280,
+                4:23040,
+                5:28800,
+                6:34560,
+                7:40320}
+    number = -1
+    for entry in TIME_ARG:
+        if week_expr != None:
+            if week_pattern.match(str(TIME_ARG[entry])):
+                number += 1
+    if number in TIME_ARG and number != 0: 
+        efficient_tax = ( TIME_ARG[number] / len(table) ) * 100
+        if len(table) < TIME_ARG[number]:
+            for entry in range(TIME_ARG[number] - len(table)):
+                table.append([0,0,0,0,0,0,0,0,0,0])
     return table, efficient_tax
-
-def efficience_to_day( table ):
-    """86400
-    """
-    return len(table) / 86400
-
-
-def plot( table, name, field ):
-    """plot maker!
-    """
-    arch_name = name + ".csv"  #gets the name for the archive
-    with open( "plots/"+arch_name, 'w' ) as archive:    #create the archive
-        for i in table:
-            archive.write( str(i)[1:-1] + "\n" )      #save every line
-        archive.close()     #close the archive
-    system( "octave plots/oc_plot.m plots/"+arch_name+" "+field )  #calls the octave script
 
 def mean_day(table, h_analyze, field_number):
     """
@@ -248,3 +246,20 @@ def mean_day(table, h_analyze, field_number):
     else:
         mean_day = -1
     return mean_day, efficience_to_day( mean_today )
+
+def efficience_to_day(table):
+    """86400
+    """
+        
+    return len(table) / 86400
+
+
+def plot( table, name, field ):
+    """plot maker!
+    """
+    arch_name = name + ".csv"  #gets the name for the archive
+    with open( "plots/"+arch_name, 'w' ) as archive:    #create the archive
+        for i in table:
+            archive.write( str(i)[1:-1] + "\n" )      #save every line
+        archive.close()     #close the archive
+    system( "octave plots/oc_plot.m plots/"+arch_name+" "+field )  #calls the octave script
