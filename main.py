@@ -80,13 +80,13 @@ if __name__ == "__main__":
         historic_efficience = code.efficience_table(ans_28days, week_expr,week_pattern)  
 
         #Get arithimetic mean to the present day and precision of data that we got
-        mean_day, efficience_day, ans_day = code.mean_day(table,new_date_str,field_number) 
+        mean_day, efficience_day, stdDev_mean, ans_day = code.mean_day(table,new_date_str,field_number) 
 
         #Gets the arithimetic mean of historic data
-        historic_mean = code.db_mean( ans_28days, field_number )    
+        historic_mean, historic_stdDev = code.db_mean( ans_28days, field_number )
         
         #Is a list of [ historic media, efficience of historic media, day media, efficience of day media ]
-        day_1 += [[historic_mean, historic_efficience, mean_day, efficience_day]]
+        day_1 += [[historic_mean, historic_efficience, historic_stdDev, mean_day, efficience_day, stdDev_mean]]
 
         h_analyze += dt.timedelta(days=1)
         comp_date = h_analyze - dt.timedelta(days=28)
