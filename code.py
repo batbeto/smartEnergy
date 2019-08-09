@@ -250,9 +250,9 @@ def mean_day(table, h_analyze, field_number):
     return mean_day, efficience_to_day(mean_today_list), mean_today_list
 
 def efficience_to_day(table):
-    """86400
+    """1440
     """
-    return ( len(table) / 86400 )*100
+    return ( len(table) / 1440 )*100
 
 def alarm_standard_deviation(mean_day, historic_mean, standard_deviation_day, standard_deviation_historic):
     """
