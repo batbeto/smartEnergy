@@ -251,11 +251,12 @@ def efficience_to_day(s_hour, e_hour, table):
     """1440
     """
     hour1 = str(s_hour).split(":")
-    hour_1 = (int(hour1[0])/60)+int(hour1[1])
+    hour_1 = (int(hour1[0])*60)+int(hour1[1])
     hour2 = str(e_hour).split(":")
-    hour_2 = (int(hour2[0])/60)+int(hour2[1])
+    hour_2 = (int(hour2[0])*60)+int(hour2[1])
+    
     if hour_1 > hour_2:
-        hour_1 = hour_1 - 1440
+        hour_1 = 1440 - hour_1
         eficience_time = (hour_1+hour_2)
     elif hour_2 > hour_1:
         eficience_time = hour_2 - hour_1
