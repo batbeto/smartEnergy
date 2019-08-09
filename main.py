@@ -69,10 +69,12 @@ if __name__ == "__main__":
     comp_date = h_analyze_date - dt.timedelta( days=28 )
     '''
     print(comp_date)
-    print(type(comp_date))
+    print(type(comp_date))  
     '''
+    
     day_1 = []
     while h_analyze_date <= code.date_from_str( e_date ):
+        
         
         #gets a list of every data 28 days ago since the "present day"
         ans_28days = code.db_28days(ansH, comp_date, h_analyze_date)
@@ -105,7 +107,6 @@ if __name__ == "__main__":
             file.write( str(entry)[1:-1]+"\n" )
         file.close()
     '''
-
 """
     code.plot( ans_to_octave, s_date[:10], field )
 

@@ -245,7 +245,7 @@ def mean_day(table, h_analyze_date, field_number):
         mean_day = -1
         stdDev_day = -1
 
-    return mean_day, efficience_to_day(mean_today_list),stdDev_day
+    return mean_day, efficience_to_day(mean_today_list), stdDev_day
 
 def efficience_to_day(table):
     """1440
