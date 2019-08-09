@@ -124,6 +124,7 @@ def timestamp_from_time(time):
     """
     return datetime.datetime.strptime(time, "%Y-%m-%dT%H:%M:%S").time()
 
+
 def group_entries_by_day(table):
     """ doing a grupo of entries by day
     """
@@ -204,8 +205,7 @@ def db_28days(table, comp_date, h_analyze):
     
     table_28days = []
     for entry in table:
-        time = entry[0]
-        if entry[0] > comp_date and entry[0] < (h_analyze-86400):         
+        if date_from_timestamp(entry[0]) > comp_date and date_from_timestamp(entry[0]) < (h_analyze - datetime.timedelta(days = 1) ):         
             table_28days.append(entry)         
     return table_28days
 
@@ -234,13 +234,12 @@ def efficience_table(table, week_expr, week_pattern):
         
     return efficient_tax
 
-def mean_day(table, h_analyze, field_number):
+def mean_day(table, h_analyze_date, field_number):
     """
     """
     mean_today_list = []
-    date_today = datetime.datetime.strptime(h_analyze, "%Y-%m-%dT%H:%M:%S").date()
     for entry in table:
-        if date_from_timestamp(entry[0]) == date_today:
+        if date_from_timestamp(entry[0]) == h_analyze_date:
             mean_today_list.append(entry)
     if len( mean_today_list ) > 0:
         mean_day = db_mean(mean_today_list, field_number)
