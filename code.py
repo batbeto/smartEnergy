@@ -247,7 +247,7 @@ def mean_day(table, h_analyze_date, field_number, s_hour, e_hour):
         mean_day = -1
         stdDev_day = -1
 
-    return mean_day, efficience_to_day(s_hour, e_hour, mean_today_list), mean_today_list
+    return mean_day, efficience_to_day(s_hour, e_hour, mean_today_list), stdDev_day
 
 def efficience_to_day(s_hour, e_hour, table):
     """1440
