@@ -226,8 +226,11 @@ def efficience_table(table, week_expr, week_pattern):
         if week_expr != None:
             if week_pattern.match(str(TIME_ARG[entry])):
                 number += 1
-    if number in TIME_ARG and number != 0: 
-        efficient_tax = ( TIME_ARG[number] / len(table) ) * 100
+
+    if (number in TIME_ARG and number != 0) and len(table) != 0: 
+        efficient_tax = ( len(table) / TIME_ARG[number] ) * 100
+    else:
+        return -1
         
     return efficient_tax
 
@@ -243,12 +246,13 @@ def mean_day(table, h_analyze, field_number):
         mean_day = db_mean(mean_today_list, field_number)
     else:
         mean_day = -1
+
     return mean_day, efficience_to_day(mean_today_list), mean_today_list
 
 def efficience_to_day(table):
     """86400
-    """    
-    return len(table) / 86400
+    """
+    return ( len(table) / 86400 )*100
 
 def alarm_standard_deviation(mean_day, historic_mean, standard_deviation_day, standard_deviation_historic):
     """
