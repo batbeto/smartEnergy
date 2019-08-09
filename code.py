@@ -161,7 +161,8 @@ def db_mean(analyzer,field_number):
     for entry in analyzer:
         sum_mean.append(entry[field_number])
     mean = np.mean(sum_mean)
-    return mean
+    std_dev = np.std(sum_mean)
+    return mean, std_dev
 
 def db_median(analyzer,field_number):
     """finding median
@@ -241,9 +242,10 @@ def mean_day(table, h_analyze_date, field_number, s, e):
         if date_from_timestamp(entry[0]) == h_analyze_date:
             mean_today_list.append(entry)
     if len( mean_today_list ) > 0:
-        mean_day = db_mean(mean_today_list, field_number)
+        mean_day, stdDev_day = db_mean(mean_today_list, field_number)
     else:
         mean_day = -1
+        stdDev_day = -1
 
     return mean_day, efficience_to_day(s, e, mean_today_list), mean_today_list
 

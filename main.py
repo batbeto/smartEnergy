@@ -90,10 +90,10 @@ if __name__ == "__main__":
         mean_day, efficience_day, ans_day = code.mean_day(table,h_analyze_date,field_number, s, e) 
 
         #Gets the arithimetic mean of historic data
-        historic_mean = code.db_mean( ans_28days, field_number )    
+        historic_mean, historic_stdDev = code.db_mean( ans_28days, field_number )
         
         #Is a list of [ historic media, efficience of historic media, day media, efficience of day media ]
-        day_1 += [[historic_mean, historic_efficience, mean_day, efficience_day]]
+        day_1 += [[historic_mean, historic_efficience, historic_stdDev, mean_day, efficience_day, stdDev_mean]]
 
         h_analyze_date += dt.timedelta(days=1)
         comp_date = h_analyze_date - dt.timedelta(days=28)
