@@ -234,7 +234,7 @@ def efficience_table(table, week_expr, week_pattern):
         
     return efficient_tax
 
-def mean_day(table, h_analyze_date, field_number, s, e):
+def mean_day(table, h_analyze_date, field_number, s_date, e_date):
     """
     """
     mean_today_list = []
