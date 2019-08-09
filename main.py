@@ -77,6 +77,7 @@ if __name__ == "__main__":
     '''
     day_1 = []
     while h_analyze_date <= code.date_from_str( e_date ):
+        
         #gets a list of every data 28 days ago since the "present day"
         ans_28days = code.db_28days(table, comp_date, h_analyze_date)
 

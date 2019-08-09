@@ -250,14 +250,6 @@ def efficience_to_day(table):
     """
     return ( len(table) / 1440 )*100
 
-def alarm_standard_deviation(mean_day, historic_mean, standard_deviation_day, standard_deviation_historic):
-    """
-    """
-    if mean_day > historic_mean and (standard_deviation_day * 1.5) > standard_deviation_historic:
-        return True
-    else: 
-        return False
-
 def plot( table, name, field ):
     """plot maker!
     """
