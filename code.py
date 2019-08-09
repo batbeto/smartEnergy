@@ -232,7 +232,7 @@ def efficience_table(table, week_expr, week_pattern):
         
     return efficient_tax
 
-def mean_day(table, h_analyze_date, field_number):
+def mean_day(table, h_analyze_date, field_number, s, e):
     """
     """
     mean_today_list = []
@@ -245,12 +245,11 @@ def mean_day(table, h_analyze_date, field_number):
         mean_day = -1
         stdDev_day = -1
 
-    return mean_day, efficience_to_day(mean_today_list), stdDev_day
+    return mean_day, efficience_to_day(s, e, mean_today_list), stdDev_day
 
-def efficience_to_day(table):
-    """1440
-    """
-    return ( len(table) / 1440 )*100
+def efficience_to_day(s, e, table):
+    date_1 = int( datetime.datetime.strptime(s, "T%H:%M:%S") )
+    return ( len(table) / eficience_time )*100
 
 def plot( table, name, field ):
     """plot maker!

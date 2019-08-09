@@ -83,7 +83,7 @@ if __name__ == "__main__":
         historic_efficience = code.efficience_table(ans_28days, week_expr,week_pattern)
 
         #Get arithimetic mean to the present day and precision of data that we got
-        mean_day, efficience_day, stdDev_day = code.mean_day(table,h_analyze_date,field_number) 
+        mean_day, efficience_day, stdDev_day = code.mean_day(ansH,h_analyze_date,field_number, s_hour, e_hour) 
 
         #Gets the arithimetic mean of historic data
         historic_mean, historic_stdDev = code.db_mean( ans_28days, field_number )
