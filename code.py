@@ -202,7 +202,9 @@ def db_28days(table, comp_date, h_analyze):
     
     table_28days = []
     for entry in table:
-        if date_from_timestamp(entry[0]) > comp_date and date_from_timestamp(entry[0]) < (h_analyze - datetime.timedelta(days = 1) ):         
+        date1 = date_from_timestamp(entry[0])
+        date2 = date_from_timestamp(entry[0])
+        if date1 > comp_date and date2 < (h_analyze - datetime.timedelta(days = 1) ):         
             table_28days.append(entry)         
     return table_28days
 
@@ -231,7 +233,7 @@ def efficience_table(table, week_expr, week_pattern):
         
     return efficient_tax
 
-def mean_day(table, h_analyze_date, field_number):
+def mean_day(table, h_analyze_date, field_number, s, e):
     """
     """
     mean_today_list = []
@@ -243,12 +245,15 @@ def mean_day(table, h_analyze_date, field_number):
     else:
         mean_day = -1
 
-    return mean_day, efficience_to_day(mean_today_list), mean_today_list
+    return mean_day, efficience_to_day(s, e, mean_today_list), mean_today_list
 
-def efficience_to_day(table):
+def efficience_to_day(s, e, table):
     """1440
     """
-    return ( len(table) / 1440 )*100
+    eficience_time = (s - e)
+    eficience_time = eficience_time/60
+
+    return ( len(table) / eficience_time )*100
 
 def plot( table, name, field ):
     """plot maker!
