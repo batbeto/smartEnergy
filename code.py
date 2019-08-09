@@ -100,14 +100,6 @@ def weekday_from_timestamp(timestamp):
     """
     return datetime.datetime.fromtimestamp(timestamp).weekday()
 
-def month_from_timestamp(timestamp):
-    """return the month
-    """
-    return datetime.datetime.fromtimestamp(timestamp).month
-def year_from_timestamp(timestamp):
-    """return the year
-    """
-    return datetime.datetime.fromtimestamp(timestamp).year
 
 def datetime_from_timestamp(timestamp):
     """convert timestamp to datetime
@@ -120,9 +112,15 @@ def timestamp_from_datetime(date):
     return datetime.datetime.strptime(date, "%Y-%m-%dT%H:%M:%S").timestamp()
 
 def timestamp_from_time(time):
-    """return only the time of datetime
+    """return only the time from datetime
     """
     return datetime.datetime.strptime(time, "%Y-%m-%dT%H:%M:%S").time()
+
+def date_from_str(date):
+    """return only the date from datetime
+    """
+    return datetime.datetime.strptime(date, "%Y-%m-%dT%H:%M:%S").date()
+
 
 def group_entries_by_day(table):
     """ doing a grupo of entries by day
@@ -205,8 +203,7 @@ def db_28days(table, comp_date, h_analyze):
     
     table_28days = []
     for entry in table:
-        time = entry[0]
-        if entry[0] > comp_date and entry[0] < (h_analyze-86400):         
+        if date_from_timestamp(entry[0]) > comp_date and date_from_timestamp(entry[0]) < (h_analyze - datetime.timedelta(days = 1) ):         
             table_28days.append(entry)         
     return table_28days
 
@@ -235,13 +232,12 @@ def efficience_table(table, week_expr, week_pattern):
         
     return efficient_tax
 
-def mean_day(table, h_analyze, field_number):
+def mean_day(table, h_analyze_date, field_number):
     """
     """
     mean_today_list = []
-    date_today = datetime.datetime.strptime(h_analyze, "%Y-%m-%dT%H:%M:%S").date()
     for entry in table:
-        if date_from_timestamp(entry[0]) == date_today:
+        if date_from_timestamp(entry[0]) == h_analyze_date:
             mean_today_list.append(entry)
     if len( mean_today_list ) > 0:
         mean_day, stdDev_day = db_mean(mean_today_list, field_number)
@@ -255,14 +251,6 @@ def efficience_to_day(table):
     """1440
     """
     return ( len(table) / 1440 )*100
-
-def alarm_standard_deviation(mean_day, historic_mean, standard_deviation_day, standard_deviation_historic):
-    """
-    """
-    if mean_day > historic_mean and (standard_deviation_day * 1.5) > standard_deviation_historic:
-        return True
-    else: 
-        return False
 
 def plot( table, name, field ):
     """plot maker!

@@ -59,28 +59,33 @@ if __name__ == "__main__":
     if errors != None:
         code.related_errors(errors)
     
+    
 
-    h_analyze = dt.datetime( int(d_date.split("-")[0]), int(d_date.split("-")[1]), int(d_date.split("-")[2][:2]) )
-    #print(h_analyze)
+    h_analyze = code.timestamp_from_datetime(d_date)
+    h_analyze_date = code.date_from_timestamp(h_analyze)
+    '''
+    print(h_analyze)
+    print(h_analyze_date)
+    print(type(h_analyze_date))
+    '''
     ###COMP_DATE -28 DAYS TO THE D_DATE (2419200 = 28 days)
-    comp_date = h_analyze
-    comp_date = h_analyze - dt.timedelta( days=28 )
-
+    
+    comp_date = h_analyze_date - dt.timedelta( days=28 )
+    '''
+    print(comp_date)
+    print(type(comp_date))
+    '''
     day_1 = []
-    new_date = 0
-    while new_date <= code.timestamp_from_datetime( e_date ):
-        new_date = dt.datetime.timestamp(h_analyze)
-        new_date_str = str( h_analyze ).split()
-        new_date_str = 'T'.join(new_date_str)
-        new_comp_date = dt.datetime.timestamp(comp_date)
+    while h_analyze_date <= code.date_from_str( e_date ):
+        
         #gets a list of every data 28 days ago since the "present day"
-        ans_28days = code.db_28days(table, new_comp_date, new_date)
+        ans_28days = code.db_28days(table, comp_date, h_analyze_date)
 
         #gets a list completed by 0's ( disposable ), end precision that we got
         historic_efficience = code.efficience_table(ans_28days, week_expr,week_pattern)  
 
         #Get arithimetic mean to the present day and precision of data that we got
-        mean_day, efficience_day, stdDev_mean, ans_day = code.mean_day(table,new_date_str,field_number) 
+        mean_day, efficience_day, ans_day = code.mean_day(table,h_analyze_date,field_number) 
 
         #Gets the arithimetic mean of historic data
         historic_mean, historic_stdDev = code.db_mean( ans_28days, field_number )
@@ -88,8 +93,8 @@ if __name__ == "__main__":
         #Is a list of [ historic media, efficience of historic media, day media, efficience of day media ]
         day_1 += [[historic_mean, historic_efficience, historic_stdDev, mean_day, efficience_day, stdDev_mean]]
 
-        h_analyze += dt.timedelta(days=1)
-        comp_date = h_analyze - dt.timedelta(days=28)
+        h_analyze_date += dt.timedelta(days=1)
+        comp_date = h_analyze_date - dt.timedelta(days=28)
     
     with open("plots/2018-05-12.csv", 'w') as file:
         for entry in day_1:
