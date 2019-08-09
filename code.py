@@ -100,14 +100,6 @@ def weekday_from_timestamp(timestamp):
     """
     return datetime.datetime.fromtimestamp(timestamp).weekday()
 
-def month_from_timestamp(timestamp):
-    """return the month
-    """
-    return datetime.datetime.fromtimestamp(timestamp).month
-def year_from_timestamp(timestamp):
-    """return the year
-    """
-    return datetime.datetime.fromtimestamp(timestamp).year
 
 def datetime_from_timestamp(timestamp):
     """convert timestamp to datetime
@@ -120,9 +112,14 @@ def timestamp_from_datetime(date):
     return datetime.datetime.strptime(date, "%Y-%m-%dT%H:%M:%S").timestamp()
 
 def timestamp_from_time(time):
-    """return only the time of datetime
+    """return only the time from datetime
     """
     return datetime.datetime.strptime(time, "%Y-%m-%dT%H:%M:%S").time()
+
+def date_from_str(date):
+    """return only the date from datetime
+    """
+    return datetime.datetime.strptime(date, "%Y-%m-%dT%H:%M:%S").date()
 
 
 def group_entries_by_day(table):
