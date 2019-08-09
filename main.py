@@ -89,7 +89,7 @@ if __name__ == "__main__":
         historic_mean, historic_stdDev = code.db_mean( ans_28days, field_number )
         
         #Is a list of [ historic media, efficience of historic media, standard deviation of historic data, day media, efficience of day media, standar deviation of the day ]
-        day_1 += [[historic_mean, historic_efficience, historic_stdDev, mean_day, efficience_day, stdDev_day]]
+        day_1.append([historic_mean, historic_efficience, historic_stdDev, mean_day, efficience_day, stdDev_day])
 
         h_analyze_date += dt.timedelta(days=1)
         comp_date = h_analyze_date - dt.timedelta(days=28)
