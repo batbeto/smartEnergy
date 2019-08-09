@@ -245,10 +245,15 @@ def mean_day(table, h_analyze_date, field_number, s, e):
         mean_day = -1
         stdDev_day = -1
 
-    return mean_day, efficience_to_day(s, e, mean_today_list), stdDev_day
+    return mean_day, efficience_to_day(s_date, e_date, mean_today_list), mean_today_list
 
-def efficience_to_day(s, e, table):
-    date_1 = int( datetime.datetime.strptime(s, "T%H:%M:%S") )
+def efficience_to_day(s_date, e_date, table):
+    """1440
+    """
+    date1 = timestamp_from_time(s_date).strftime("%s")
+    date2 = timestamp_from_time(e_date).strftime("%s")
+    eficience_time = (date1-date2)/60
+
     return ( len(table) / eficience_time )*100
 
 def plot( table, name, field ):
