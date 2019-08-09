@@ -178,8 +178,8 @@ def db_standard_deviation(analyzer, field_number):
     """
     sum_analyzer = []    
     for entry in analyzer:
-        sum_analyzer.append(entry[number_number])
-    svariance = np.var(sum_analyzer)
+        sum_analyzer.append(entry[field_number])
+    variance = np.var(sum_analyzer)
     dp = np.sqrt(variance)
     return dp
 
@@ -228,31 +228,35 @@ def efficience_table(table, week_expr, week_pattern):
                 number += 1
     if number in TIME_ARG and number != 0: 
         efficient_tax = ( TIME_ARG[number] / len(table) ) * 100
-        if len(table) < TIME_ARG[number]:
-            for entry in range(TIME_ARG[number] - len(table)):
-                table.append([0,0,0,0,0,0,0,0,0,0])
-    return table, efficient_tax
+        
+    return efficient_tax
 
 def mean_day(table, h_analyze, field_number):
     """
     """
-    mean_today = []
+    mean_today_list = []
     date_today = datetime.datetime.strptime(h_analyze, "%Y-%m-%dT%H:%M:%S").date()
     for entry in table:
         if date_from_timestamp(entry[0]) == date_today:
-            mean_today.append(entry)
-    if len( mean_today ) > 0:
-        mean_day = db_mean(mean_today, field_number)
+            mean_today_list.append(entry)
+    if len( mean_today_list ) > 0:
+        mean_day = db_mean(mean_today_list, field_number)
     else:
         mean_day = -1
-    return mean_day, efficience_to_day( mean_today )
+    return mean_day, efficience_to_day(mean_today_list), mean_today_list
 
 def efficience_to_day(table):
     """86400
-    """
-        
+    """    
     return len(table) / 86400
 
+def alarm_standard_deviation(mean_day, historic_mean, standard_deviation_day, standard_deviation_historic):
+    """
+    """
+    if mean_day > historic_mean and (standard_deviation_day * 1.5) > standard_deviation_historic:
+        return True
+    else: 
+        return False
 
 def plot( table, name, field ):
     """plot maker!
