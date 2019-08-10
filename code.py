@@ -203,9 +203,7 @@ def db_28days(table, comp_date, h_analyze):
     
     table_28days = []
     for entry in table:
-        date1 = date_from_timestamp(entry[0])
-        date2 = date_from_timestamp(entry[0])
-        if date1 > comp_date and date2 < (h_analyze - datetime.timedelta(days = 1) ):         
+        if date_from_timestamp(entry[0]) > comp_date and date_from_timestamp(entry[0]) < (h_analyze - datetime.timedelta(days = 1) ):         
             table_28days.append(entry)         
     return table_28days
 
@@ -253,11 +251,16 @@ def efficience_to_day(s_hour, e_hour, table):
     """1440
     """
     hour1 = str(s_hour).split(":")
-    hour_1 = (int(hour1[0])/60)+int(hour1[1])
+    hour_1 = (int(hour1[0])*60)+int(hour1[1])
     hour2 = str(e_hour).split(":")
-    hour_2 = (int(hour2[0])/60)+int(hour2[1])
+    hour_2 = (int(hour2[0])*60)+int(hour2[1])
+    
     if hour_1 > hour_2:
+<<<<<<< HEAD
         hour_1 = 1440 - hour_1 
+=======
+        hour_1 = 1440 - hour_1
+>>>>>>> 46278859f054646d69a7b6b797dc3f82239ce46e
         eficience_time = (hour_1+hour_2)
     elif hour_2 > hour_1:
         eficience_time = hour_2 - hour_1

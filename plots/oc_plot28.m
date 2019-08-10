@@ -2,6 +2,11 @@
 
 printf("Started\n");
 
+#{
+function precision_color( percent )
+    switch percent
+endfunction
+#}
 function csv_plot( file )
     db = csvread( file );
     
@@ -12,7 +17,7 @@ function csv_plot( file )
 
     for i=2:1:length( db )
         
-        axis([ i-20 i+20 min(alert_down)-100 max(alert) + 50 ])
+        axis([ i-30 i+10 min(alert_down)-100 max(alert) + 50 ])
 
         
         if arithimetic_mean_day(i) == -1

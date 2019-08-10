@@ -68,11 +68,7 @@ if __name__ == "__main__":
 
     h_analyze = code.timestamp_from_datetime(d_date)
     h_analyze_date = code.date_from_timestamp(h_analyze)
-    '''
-    print(h_analyze)
-    print(h_analyze_date)
-    print(type(h_analyze_date))
-    '''
+
     ###COMP_DATE -28 DAYS TO THE D_DATE (2419200 = 28 days)
     
     comp_date = h_analyze_date - dt.timedelta( days=28 )
@@ -87,28 +83,30 @@ if __name__ == "__main__":
         
         #gets a list of every data 28 days ago since the "present day"
         ans_28days = code.db_28days(ansH, comp_date, h_analyze_date)
-    
-        #gets a list completed by 0's ( disposable ), end precision that we got
-        historic_efficience = code.efficience_table(ans_28days, week_expr,week_pattern)  
+
+        #Precision that we got
+        historic_efficience = code.efficience_table(ans_28days, week_expr,week_pattern)
 
         #Get arithimetic mean to the present day and precision of data that we got
-        mean_day, efficience_day, stdDev_mean = code.mean_day(ansH ,h_analyze_date,field_number, s_hour, e_hour) 
+        mean_day, efficience_day, stdDev_day = code.mean_day(ansH,h_analyze_date,field_number, s_hour, e_hour) 
 
         #Gets the arithimetic mean of historic data
         historic_mean, historic_stdDev = code.db_mean( ans_28days, field_number )
         
-        #Is a list of [ historic media, efficience of historic media, day media, efficience of day media ]
-        day_1 += [[historic_mean, historic_efficience, historic_stdDev, mean_day, efficience_day, stdDev_mean]]
+        #Is a list of [ historic media, efficience of historic media, standard deviation of historic data, day media, efficience of day media, standar deviation of the day ]
+        day_1.append([historic_mean, historic_efficience, historic_stdDev, mean_day, efficience_day, stdDev_day])
 
         h_analyze_date += dt.timedelta(days=1)
         comp_date = h_analyze_date - dt.timedelta(days=28)
-    
+
+
     with open("plots/2018-05-12.csv", 'w') as file:
         for entry in day_1:
             file.write(str( entry )[1:-1]+'\n')
         file.close()
 
     
+<<<<<<< HEAD
     
     X = np.array(day_1)
 
@@ -122,6 +120,8 @@ if __name__ == "__main__":
     
     #print(f"MD: {mean_day} HM: {historic_mean} SDD:{standard_deviation_day} SDH:{standard_deviation_historic}")
     
+=======
+>>>>>>> 46278859f054646d69a7b6b797dc3f82239ce46e
     '''
     with open( "28days.csv", 'w' ) as file:
         for entry in ans_28days_octave:
