@@ -121,7 +121,7 @@ def related_errors(errors):
         
         
         
-        ###################ISTO ERA DO MAIN###################
+        ###################     ISTO ERA DO MAIN    ###################
         comp_date = h_analyze_date - dt.timedelta( days=28 )
         '''
         print(comp_date)
@@ -187,3 +187,5 @@ def related_errors(errors):
             file_SmartEnergy.write(str(i)+'\n')
         file_SmartEnergy.close()
         """
+
+
