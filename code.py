@@ -1,5 +1,4 @@
 import datetime
-from statistics import median
 import numpy as np
 from os import system
 
