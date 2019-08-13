@@ -63,10 +63,6 @@ def find_day(day, table):
     """
     return binary_search_day(day, table, 0, len(table) - 1)
 
-def return_field(field):
-    if field in FIELD:
-        number = FIELD[field]
-    return number
     
 def find_between_timestamps(table, start, end):
     """ Find the interval in BD between passed parameters and try to find any discontinuity
@@ -116,10 +112,6 @@ def timestamp_from_time(time):
     """
     return datetime.datetime.strptime(time, "%Y-%m-%dT%H:%M:%S").time()
 
-def date_from_str(date):
-    """return only the date from datetime
-    """
-    return datetime.datetime.strptime(date, "%Y-%m-%dT%H:%M:%S").date()
 
 
 def group_entries_by_day(table):
@@ -133,54 +125,11 @@ def group_entries_by_day(table):
         ans[d].append(entry)
     return ans
 
-
 def time_from_timestamp(timestamp):
     """ return only the time of timestamp
     """
     return datetime.datetime.fromtimestamp(timestamp).time()
 
-def date_from_timestamp(timestamp):
-    """
-    """
-    return datetime.datetime.fromtimestamp(timestamp).date()
-
-def related_errors(errors):
-    """archive the related errors of the database
-    """
-    with open('relatedErrors.txt', 'w') as file_SmartEnergy:
-        for entry in errors:
-            file_SmartEnergy.write(str(f'{time_from_timestamp(entry[0])} {datetime_from_timestamp(entry[0])} {entry[0]} '))
-            file_SmartEnergy.write(str(f'{time_from_timestamp(entry[1])} {datetime_from_timestamp(entry[1])} {entry[1]} \n'))
-        file_SmartEnergy.close()
-
-
-def db_mean(analyzer,field_number):
-    """ calculating mean 
-    """
-    sum_mean = []
-    for entry in analyzer:
-        sum_mean.append(entry[field_number])
-    mean = np.mean(sum_mean)
-    std_dev = np.std(sum_mean)
-    return mean, std_dev
-
-def db_median(analyzer,field_number):
-    """finding median
-    """
-    median_list = []
-    for entry in analyzer:
-        median_list.append(entry[field_number])
-    return median(median_list)
-
-def db_standard_deviation(analyzer, field_number):
-    """calculating standard deviation
-    """
-    sum_analyzer = []    
-    for entry in analyzer:
-        sum_analyzer.append(entry[field_number])
-    variance = np.var(sum_analyzer)
-    dp = np.sqrt(variance)
-    return dp
 
 def filter_table(intervaldb, week_expr, week_pattern, s_hour, e_hour):
     """filter of intervaldb to return date and hour
@@ -195,82 +144,8 @@ def filter_table(intervaldb, week_expr, week_pattern, s_hour, e_hour):
                     ansH.append(entry)
     return ans, ansH
 
-
-
-def db_28days(table, comp_date, h_analyze):
-    """creating a interval of 28 days
-    """
-    
-    table_28days = []
-    for entry in table:
-        if date_from_timestamp(entry[0]) > comp_date and date_from_timestamp(entry[0]) < (h_analyze - datetime.timedelta(days = 1) ):         
-            table_28days.append(entry)         
-    return table_28days
-
-
-def efficience_table(table, week_expr, week_pattern):
-    """calculating the efficience of the table!
-    """
-    TIME_ARG = {0:0,
-                1:5760,
-                2:11520,
-                3:17280,
-                4:23040,
-                5:28800,
-                6:34560,
-                7:40320}
-    number = -1
-    for entry in TIME_ARG:
-        if week_expr != None:
-            if week_pattern.match(str(TIME_ARG[entry])):
-                number += 1
-
-    if (number in TIME_ARG and number != 0) and len(table) != 0: 
-        efficient_tax = ( len(table) / TIME_ARG[number] ) * 100
-    else:
-        return -1
-        
-    return efficient_tax
-
-def mean_day(table, h_analyze_date, field_number, s_hour, e_hour):
-    """
-    """
-    mean_today_list = []
-    for entry in table:
-        if date_from_timestamp(entry[0]) == h_analyze_date:
-            mean_today_list.append(entry)
-    if len( mean_today_list ) > 0:
-        mean_day, stdDev_day = db_mean(mean_today_list, field_number)
-    else:
-        mean_day = -1
-        stdDev_day = -1
-
-    return mean_day, efficience_to_day(s_hour, e_hour, mean_today_list), stdDev_day
-
-def efficience_to_day(s_hour, e_hour, table):
-    """1440
-    """
-    hour1 = str(s_hour).split(":")
-    hour_1 = (int(hour1[0])*60)+int(hour1[1])
-    hour2 = str(e_hour).split(":")
-    hour_2 = (int(hour2[0])*60)+int(hour2[1])
-    
-    if hour_1 > hour_2:
-        hour_1 = 1440 - hour_1 
-        eficience_time = (hour_1+hour_2)
-    elif hour_2 > hour_1:
-        eficience_time = hour_2 - hour_1
-    else:
-        eficience_time = hour_2 - hour_1
-
-    return ( len(table) / eficience_time )*100
-
-def plot( table, name, field ):
-    """plot maker!
-    """
-    arch_name = name + ".csv"  #gets the name for the archive
-    with open( "plots/"+arch_name, 'w' ) as archive:    #create the archive
-        for i in table:
-            archive.write( str(i)[1:-1] + "\n" )      #save every line
-        archive.close()     #close the archive
-    system( "octave plots/oc_plot.m plots/"+arch_name+" "+field )  #calls the octave script
+def write_csv(ansH):
+    with open("dump_data.csv", 'w') as file:
+        for entry in ansH:
+            file.write(str( entry )+'\n')
+        file.close()
