@@ -3,11 +3,7 @@ import code
 import re
 import sys
 import datetime as dt
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as pl
-import seaborn as sb
-from sklearn.cluster import KMeans
+
 
 
 USAGE = """\
@@ -106,22 +102,11 @@ if __name__ == "__main__":
         file.close()
 
     
-<<<<<<< HEAD
     
-    X = np.array(day_1)
-
-    dump_k = KMeans(n_clusters=10, random_state=0 )
     
-    dump_k.fit(X)
-
-    day_1['KM-Classes']= dump_k.labels_
-
-    sb.pairplot(day_1, hue = 'KM-Classes')
     
     #print(f"MD: {mean_day} HM: {historic_mean} SDD:{standard_deviation_day} SDH:{standard_deviation_historic}")
     
-=======
->>>>>>> 46278859f054646d69a7b6b797dc3f82239ce46e
     '''
     with open( "28days.csv", 'w' ) as file:
         for entry in ans_28days_octave:
