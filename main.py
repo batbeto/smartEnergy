@@ -53,6 +53,7 @@ if __name__ == "__main__":
     # filter by weekday
     ans, ansH = code.filter_table(intervaldb, week_expr, week_pattern, s_hour, e_hour)
     #print(len(ans), len(ansH))
-    
+    print(len(ans))
+    print(len(ansH))
     code.write_csv(ansH)
     

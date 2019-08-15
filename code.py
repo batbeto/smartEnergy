@@ -139,7 +139,7 @@ def filter_table(intervaldb, week_expr, week_pattern, s_hour, e_hour):
         if week_expr != None:
             if week_pattern.match(str(weekday_from_timestamp(entry[0]))):
                 ans.append(entry)
-                if s_hour <= time_from_timestamp(entry[0]) and e_hour <= time_from_timestamp(entry[0]):
+                if s_hour <= time_from_timestamp(entry[0]) and  time_from_timestamp(entry[0]) <= e_hour:
                     ansH.append(entry)
     return ans, ansH
 
